@@ -29,11 +29,56 @@ uint borrar_bits(uint x, uint pat, int len){
 
 
 char *reemplazo(char *s, char c, char *pal){
-	return 0;
+	int largo=0; 
+	int largo_pal = 0;
+	int apariciones =0;
 
+	while(*pal!=0){
+		pal++;
+		largo_pal +=1;
+	}
+
+	pal-=largo_pal;
+	while(*s!=0){
+		if(*s==c){apariciones++;}
+		largo +=1;
+		s++;
+	}
+
+	s-=largo;
+	char *res = malloc(sizeof(char)*(largo+apariciones*(largo_pal-1)));
+	// printf("%s\n", s);
+	// printf("%s\n", pal);
+	// printf("%d\n", apariciones);
+	while(*s!=0){
+		if(*s==c){
+			int j;
+			// printf("%s\n", "hi");
+			for(j=0; j<largo_pal; j++){
+				*res = *pal;
+				res++;
+				pal++;
+			}
+			pal-=largo_pal;
+			res-=1;
+			;}
+		else{
+			*res = *s;
+		}
+		s++;
+		res++;
+	}
+	res-=(largo+apariciones*(largo_pal-1));
+	s-=largo;
+	printf("%s\n",res );
+	return res;
 }
-
 
 void reemplazar(char *s, char c, char *pal){
 	return;
 }
+// void main(){
+// 	char *src= "hola que tal";
+//     char *res= reemplazo(src, 'a', "xyz");
+//     printf("%s\n",res );
+// }

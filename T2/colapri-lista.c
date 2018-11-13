@@ -87,7 +87,11 @@ static void agregar(ColaPri colapri, void *a) {
 /* entregar elemento con mejor prioridad, sin extraerlo de la cola */
 static void* mejor(ColaPri colapri) {
     ColaPriLista *cp= (ColaPriLista*)colapri;
-	return cp->elems->valor;
+    if(cp->elems != NULL)
+		return cp->elems->valor;
+	else
+		return NULL;
+	
 }
 
 /* retoran cantidad de elementos actuales de la cola de prioridad */
@@ -100,9 +104,14 @@ static int tamano(ColaPri colapri) {
 static void* extraer(ColaPri colapri) {
     ColaPriLista *cp= (ColaPriLista*)colapri;
     Nodo *primero = cp->elems;
-    cp->elems = primero->sig;
-    cp->n--;
-	return primero->valor;
+	if(primero != NULL){
+	    cp->elems = primero->sig;
+	    cp->n--;
+		return primero->valor;
+	}
+	else{
+		return NULL;
+	}
 
 }
 
@@ -162,10 +171,15 @@ static int continua(IterColaP itercp) {
 */
 static void *proximo(IterColaP itercp) {
 	IterColaLista *iter= (IterColaLista*) itercp;
-	iter->k++;
-	void *x = iter->nodo_actual->valor;
-	iter->nodo_actual = iter->nodo_actual->sig;
-	return x;
+	if(iter->nodo_actual!=NULL){
+		iter->k++;
+		void *x = iter->nodo_actual->valor;
+		iter->nodo_actual = iter->nodo_actual->sig;
+		return x;
+	}
+	else {
+		return NULL;
+	}
 }
 
 /* destrucción del iterador 

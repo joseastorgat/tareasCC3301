@@ -107,7 +107,9 @@ static void* extraer(ColaPri colapri) {
 	if(primero != NULL){
 	    cp->elems = primero->sig;
 	    cp->n--;
-		return primero->valor;
+	    void *x = primero ->valor;
+	    free(primero);
+		return x;
 	}
 	else{
 		return NULL;
